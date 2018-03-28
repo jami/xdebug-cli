@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"strings"
 )
 
 func handleXDebugConnection(c net.Conn) {
@@ -24,14 +25,16 @@ func handleXDebugConnection(c net.Conn) {
 		fmt.Println("got", bytesRead, "bytes.")
 		message = message + string(tmp[:bytesRead])
 
-		if bytesRead < len(tmp) {
+		if bytesRead < len(tmp) || (bytesRead == len(tmp) && tmp[bytesRead-1] == 0) {
 			fmt.Println("message \n", message)
 			fmt.Print("\n Enter text: ")
 			reader := bufio.NewReader(os.Stdin)
 			text, _ := reader.ReadString('\n')
-			text = text + "\n"
+			text = strings.Trim(text, "\n")
 			c.Write([]byte(text))
 			c.Write([]byte{0})
+
+			message = ""
 		}
 	}
 
