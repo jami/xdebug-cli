@@ -2,13 +2,9 @@ package xdebugcli
 
 import (
 	"bytes"
-	"encoding/xml"
 	"fmt"
 	"io"
 	"net"
-	"strings"
-
-	"golang.org/x/net/html/charset"
 )
 
 type dbgpStateType int
@@ -56,26 +52,6 @@ type DBGPConnection struct {
 	transactionIndex int
 }
 
-func (c *DBGPConnection) processMessage(m string) (interface{}, error) {
-	fmt.Println(m)
-	msg := &DBGPMessage{}
-
-	initProto := dbgpProtocolInit{}
-
-	decoder := xml.NewDecoder(strings.NewReader(m))
-	decoder.CharsetReader = charset.NewReaderLabel
-
-	fmt.Printf("foo %#v\n", decoder.Entity)
-	if err := decoder.Decode(&initProto); err == nil {
-		fmt.Printf("init protocol %#v\n", initProto)
-		return initProto, nil
-	}
-
-	fmt.Printf("meh\n")
-
-	return msg, nil
-}
-
 // ReadMessage read a message
 func (c *DBGPConnection) ReadMessage() (interface{}, error) {
 	buffer := make([]byte, dbgpBufferSize)
@@ -106,7 +82,7 @@ func (c *DBGPConnection) ReadMessage() (interface{}, error) {
 		break
 	}
 
-	return c.processMessage(dbgpMessageContent)
+	return CreateProtocolFromXML(dbgpMessageContent)
 }
 
 // SendMessage writes a message
@@ -150,7 +126,7 @@ func (s *DBGPServer) Listen() error {
 func (s *DBGPServer) Accept() {
 	for {
 		conn, err := s.listener.Accept()
-		fmt.Println("Start session")
+		fmt.Println("(xdbg-cli) start session")
 		if err != nil {
 			fmt.Println(err)
 			continue
@@ -174,19 +150,15 @@ func handleDGBPConnection(c net.Conn) {
 	defer c.Close()
 
 	dbgpConnection := NewDBGPConnection(c)
-
 	msg, err := dbgpConnection.ReadMessage()
 	if err != nil {
 		fmt.Println("Connection error: ", err)
 		return
 	}
 
-	switch t := msg.(type) {
-	case dbgpProtocolInit:
-		fmt.Println("init type yeah")
-		dbgpConnection.state = dbgpStateStarting
-	default:
-		fmt.Printf("expecting init protocol. Unknown handling for type %T\n", t)
+	// expecting init
+	if _, ok := msg.(ProtocolInit); !ok {
+		fmt.Println("Expecting init protocol")
 		return
 	}
 

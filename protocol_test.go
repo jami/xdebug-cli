@@ -152,7 +152,6 @@ var _ = Describe("Protocol xml parsing", func() {
 			Ω(responseProto.Context).Should(Equal("1"))
 			Ω(responseProto.PropertyList).Should(HaveLen(7))
 
-			//xdebugcli.ProtocolProperty>: {Name: "$_COOKIE", Fullname: "$_COOKIE", Type: "array", Children: 0, NumChildren: 0, Page: 0, PageSize: 32, Content: "", Property: nil}
 			Ω(responseProto.PropertyList[0]).Should(Equal(xdebugcli.ProtocolProperty{
 				Name:        "$_COOKIE",
 				Fullname:    "$_COOKIE",
