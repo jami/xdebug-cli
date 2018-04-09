@@ -27,22 +27,22 @@ func TestProtocol(t *testing.T) {
 
 //
 var _ = Describe("Protocol xml parsing", func() {
-	/*
-		Context("Test init protocol", func() {
-			It("test init.1.xml", func() {
-				assetData := loadProtocolAsset("init.1.xml")
-				proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolInit{}))
 
-				initProto := proto.(*xdebugcli.ProtocolInit)
-				Ω(initProto.FileURI).Should(Equal("file:///PhpProject1/index.php"))
-				Ω(initProto.Language).Should(Equal("PHP"))
-				Ω(initProto.AppID).Should(Equal("24001"))
-				Ω(initProto.IDEKey).Should(Equal("jami"))
-			})
+	Context("Test init protocol", func() {
+		It("test init.1.xml", func() {
+			assetData := loadProtocolAsset("init.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolInit{}))
+
+			initProto := proto.(*xdebugcli.ProtocolInit)
+			Ω(initProto.FileURI).Should(Equal("file:///PhpProject1/index.php"))
+			Ω(initProto.Language).Should(Equal("PHP"))
+			Ω(initProto.AppID).Should(Equal("24001"))
+			Ω(initProto.IDEKey).Should(Equal("jami"))
 		})
-	*/
+	})
+
 	Context("Test response protocol", func() {
 		It("test response.bplist.1.xml", func() {
 			assetData := loadProtocolAsset("response.bplist.1.xml")
