@@ -52,15 +52,25 @@ type ProtocolProperty struct {
 	Property    *ProtocolProperty `xml:"property"`
 }
 
+// ProtocolMessage data struct
+type ProtocolMessage struct {
+	Filename  string `xml:"filename,attr"`
+	Line      int    `xml:"lineno,attr"`
+	Exception string `xml:"exception,attr"`
+}
+
 // ProtocolResponse data struct
 type ProtocolResponse struct {
 	Command        string               `xml:"command,attr"`
 	Context        string               `xml:"context,attr"`
 	TransactionID  string               `xml:"transaction_id,attr"`
+	Reason         string               `xml:"reason,attr"`
+	Status         string               `xml:"status,attr"`
 	BreakpointList []ProtocolBreakpoint `xml:"breakpoint"`
 	ContextList    []ProtocolContext    `xml:"context"`
 	PropertyList   []ProtocolProperty   `xml:"property"`
 	StackList      []ProtocolStack      `xml:"stack"`
+	Message        ProtocolMessage      `xml:"message"`
 }
 
 // CreateProtocolFromXML creator
@@ -75,9 +85,7 @@ func CreateProtocolFromXML(xmlString string) (interface{}, error) {
 		}
 		se, ok := t.(xml.StartElement)
 		if ok {
-			name := se.Name.Local
-			fmt.Println("localname", name)
-			switch name {
+			switch name := se.Name.Local; name {
 			case "init":
 				intiProto := &ProtocolInit{}
 				err := decoder.DecodeElement(intiProto, &se)
@@ -86,7 +94,6 @@ func CreateProtocolFromXML(xmlString string) (interface{}, error) {
 				}
 				return nil, err
 			case "response":
-				fmt.Println("Build response")
 				respProto := &ProtocolResponse{}
 				err := decoder.DecodeElement(respProto, &se)
 				if err == nil {

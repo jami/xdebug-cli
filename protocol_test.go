@@ -49,12 +49,121 @@ var _ = Describe("Protocol xml parsing", func() {
 			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
 			Ω(err).ShouldNot(HaveOccurred())
 			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
-			/*
-				initProto := proto.(*xdebugcli.ProtocolInit)
-				Ω(initProto.FileURI).Should(Equal("file:///PhpProject1/index.php"))
-				Ω(initProto.Language).Should(Equal("PHP"))
-				Ω(initProto.AppID).Should(Equal("24001"))
-				Ω(initProto.IDEKey).Should(Equal("jami")) */
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("breakpoint_list"))
+			Ω(responseProto.BreakpointList).Should(HaveLen(0))
+		})
+
+		It("test response.bplist.2.xml", func() {
+			assetData := loadProtocolAsset("response.bplist.2.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("breakpoint_list"))
+			Ω(responseProto.BreakpointList).Should(HaveLen(1))
+
+			Ω(responseProto.BreakpointList).Should(Equal([]xdebugcli.ProtocolBreakpoint{{
+				Type:     "line",
+				Line:     19,
+				State:    "enabled",
+				HitCount: 0,
+			}}))
+		})
+
+		It("test response.bpset.1.xml", func() {
+			assetData := loadProtocolAsset("response.bpset.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("breakpoint_set"))
+		})
+
+		It("test response.run.1.xml", func() {
+			assetData := loadProtocolAsset("response.run.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("run"))
+			Ω(responseProto.Status).Should(Equal("break"))
+			Ω(responseProto.Reason).Should(Equal("ok"))
+			Ω(responseProto.Message.Filename).Should(Equal("file:///PhpProject1/index.php"))
+			Ω(responseProto.Message.Line).Should(Equal(19))
+		})
+
+		It("test response.sget.1.xml", func() {
+			assetData := loadProtocolAsset("response.sget.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("stack_get"))
+			Ω(responseProto.StackList).Should(HaveLen(1))
+
+			stack := responseProto.StackList[0]
+			Ω(stack.Filename).Should(Equal("file:///PhpProject1/index.php"))
+			Ω(stack.Level).Should(Equal(0))
+			Ω(stack.Line).Should(Equal(19))
+			Ω(stack.Type).Should(Equal("file"))
+			Ω(stack.Where).Should(Equal("{main}"))
+		})
+
+		It("test response.cn.1.xml", func() {
+			assetData := loadProtocolAsset("response.cn.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("context_names"))
+			Ω(responseProto.ContextList).Should(HaveLen(3))
+
+			Ω(responseProto.ContextList[0]).Should(Equal(xdebugcli.ProtocolContext{
+				ID:   "0",
+				Name: "Locals",
+			}))
+
+			Ω(responseProto.ContextList[1]).Should(Equal(xdebugcli.ProtocolContext{
+				ID:   "1",
+				Name: "Superglobals",
+			}))
+
+			Ω(responseProto.ContextList[2]).Should(Equal(xdebugcli.ProtocolContext{
+				ID:   "2",
+				Name: "User defined constants",
+			}))
+		})
+
+		It("test response.cg.1.xml", func() {
+			assetData := loadProtocolAsset("response.cg.1.xml")
+			proto, err := xdebugcli.CreateProtocolFromXML(string(assetData))
+			Ω(err).ShouldNot(HaveOccurred())
+			Ω(proto).Should(BeAssignableToTypeOf(&xdebugcli.ProtocolResponse{}))
+			responseProto := proto.(*xdebugcli.ProtocolResponse)
+
+			Ω(responseProto.Command).Should(Equal("context_get"))
+			Ω(responseProto.Context).Should(Equal("1"))
+			Ω(responseProto.PropertyList).Should(HaveLen(7))
+
+			//xdebugcli.ProtocolProperty>: {Name: "$_COOKIE", Fullname: "$_COOKIE", Type: "array", Children: 0, NumChildren: 0, Page: 0, PageSize: 32, Content: "", Property: nil}
+			Ω(responseProto.PropertyList[0]).Should(Equal(xdebugcli.ProtocolProperty{
+				Name:        "$_COOKIE",
+				Fullname:    "$_COOKIE",
+				Type:        "array",
+				Children:    0,
+				NumChildren: 0,
+				Page:        0,
+				PageSize:    32,
+				Content:     "",
+				Property:    nil,
+			}))
 		})
 	})
 })

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<response 
+    xmlns="urn:debugger_protocol_v1" 
+    xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="7">
+    <stack where="{main}" level="0" type="file" filename="file:///PhpProject1/index.php" lineno="19"></stack>
+</response>
