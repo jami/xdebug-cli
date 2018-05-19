@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jami/xdebug-cli/cfg"
 	homedir "github.com/mitchellh/go-homedir"
 
 	"github.com/spf13/cobra"
@@ -22,12 +23,16 @@ var (
 	}
 	// cfgFile
 	cfgFile string
+	// CLIArgs global parameter
+	CLIArgs = &cfg.CLIParameter{}
 )
 
 func init() {
 	cobra.OnInitialize(initConfigFile)
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.xdbgcli.yaml)")
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	RootCmd.PersistentFlags().StringVarP(&CLIArgs.Host, "host", "l", "127.0.0.1", "Listener host")
+	RootCmd.PersistentFlags().Uint16VarP(&CLIArgs.Port, "port", "p", 9000, "Listener port")
+	RootCmd.PersistentFlags().StringVarP(&CLIArgs.Trigger, "trigger", "t", "", "Debug session trigger")
 }
 
 func initConfigFile() {
