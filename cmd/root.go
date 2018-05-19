@@ -25,9 +25,13 @@ var (
 	cfgFile string
 	// CLIArgs global parameter
 	CLIArgs = &cfg.CLIParameter{}
+
+	version string
 )
 
 func init() {
+	CLIArgs.Version = version
+
 	cobra.OnInitialize(initConfigFile)
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.xdbgcli.yaml)")
 	RootCmd.PersistentFlags().StringVarP(&CLIArgs.Host, "host", "l", "127.0.0.1", "Listener host")

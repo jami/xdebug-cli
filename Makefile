@@ -1,11 +1,15 @@
 PACKAGES=$(shell go list ./... | grep -v /vendor/)
 RACE := $(shell test $$(go env GOARCH) != "amd64" || (echo "-race"))
 
+BINARY=xdbg
+
 # target
-VERSION := `git rev-parse --short HEAD`
+VERSION ?= `git rev-parse --short HEAD`
 
 # Use linker flags to provide version/build settings to the target
-LDFLAGS=-ldflags "-X=github.com/jami/xdebug-cli/version.Version=$(VERSION)"
+LDFLAGS=-ldflags "-X=github.com/jami/xdebug-cli/cmd.version=$(VERSION)"
+
+all: build/local
 
 help:
 	@echo 'Available commands:'
@@ -30,17 +34,20 @@ deps:
 	go get -u github.com/spf13/viper
 
 build:
-	@echo "Compiling..."
+	@echo "Compiling all arch targets ..."
 	@mkdir -p ./bin
-	@gox $(LDFLAGS) -output "bin/{{.Dir}}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
-	@go build -i -o ./bin/xdbg
+	@gox $(LDFLAGS) -output "bin/${BINARY}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
 	@echo "All done! The binaries is in ./bin let's have fun!"
+
+build/local:
+	@echo "Compiling local arch ..."
+	@mkdir -p ./bin
+	@go build $(LDFLAGS) -i -o "./bin/${BINARY}"
 
 build/release:
 	@echo "Compiling..."
 	@mkdir -p ./bin
-	@gox $(LDFLAGS) -tags netgo -ldflags '-w -extldflags "-static"' -output "bin/{{.Dir}}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
-	@go build -i -o ./bin/xdbg
+	@gox $(LDFLAGS) -tags netgo -ldflags '-w -extldflags "-static"' -output "bin/${BINARY}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
 	@echo "All done! The binaries is in ./bin let's have fun!"
  
 build/docker: build

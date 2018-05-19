@@ -5,4 +5,5 @@ type CLIParameter struct {
 	Host    string
 	Port    uint16
 	Trigger string
+	Version string
 }
