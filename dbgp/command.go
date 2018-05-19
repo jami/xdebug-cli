@@ -20,10 +20,11 @@ type CommandProcessor struct {
 // GetCommand accumulates input runes
 func (cp *CommandProcessor) GetCommand(transID int) string {
 	buffer, _ := cp.reader.ReadString('\n')
-
+	fmt.Println("Buffer", buffer)
 	for matcher, builder := range cp.commands {
 		if matcher.MatchString(buffer) {
 			buffer = builder(transID, buffer)
+			fmt.Println("Builder", buffer)
 			break
 		}
 	}

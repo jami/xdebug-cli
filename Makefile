@@ -51,7 +51,7 @@ build/release:
 	@echo "All done! The binaries is in ./bin let's have fun!"
  
 build/docker: build
-	@docker build -t xdebug-cli:latest .
+	@docker build -t xdbg-example:latest .
 
 vet: ## run go vet
 	@test -z "$$(go vet ${PACKAGES} 2>&1 | grep -v '*composite literal uses unkeyed fields|exit status 0)' | tee /dev/stderr)"

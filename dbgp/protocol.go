@@ -59,6 +59,12 @@ type ProtocolMessage struct {
 	Exception string `xml:"exception,attr"`
 }
 
+// ProtocolError data struct
+type ProtocolError struct {
+	Code    int    `xml:"code,attr"`
+	Message string `xml:"message"`
+}
+
 // ProtocolResponse data struct
 type ProtocolResponse struct {
 	Command        string               `xml:"command,attr"`
@@ -66,6 +72,7 @@ type ProtocolResponse struct {
 	TransactionID  string               `xml:"transaction_id,attr"`
 	Reason         string               `xml:"reason,attr"`
 	Status         string               `xml:"status,attr"`
+	Error          ProtocolError        `xml:"error"`
 	BreakpointList []ProtocolBreakpoint `xml:"breakpoint"`
 	ContextList    []ProtocolContext    `xml:"context"`
 	PropertyList   []ProtocolProperty   `xml:"property"`
@@ -73,8 +80,14 @@ type ProtocolResponse struct {
 	Message        ProtocolMessage      `xml:"message"`
 }
 
+// HasError getter
+func (p ProtocolResponse) HasError() bool {
+	return p.Error.Code > 0 || len(p.Error.Message) > 0
+}
+
 // CreateProtocolFromXML creator
 func CreateProtocolFromXML(xmlString string) (interface{}, error) {
+	fmt.Println("Protocol from xml ", xmlString)
 	decoder := xml.NewDecoder(strings.NewReader(xmlString))
 	decoder.CharsetReader = charset.NewReaderLabel
 

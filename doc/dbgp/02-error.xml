@@ -1,0 +1,11 @@
+ 
+<?xml version="1.0" encoding="iso-8859-1"?>
+<response 
+    xmlns="urn:debugger_protocol_v1" 
+    xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="test">
+    <error code="3">
+        <message>
+            <![CDATA[invalid or missing options]]>
+        </message>
+    </error>
+</response>

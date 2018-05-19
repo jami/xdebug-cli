@@ -155,9 +155,9 @@ func handleDGBPConnection(c net.Conn) {
 		fmt.Println("Connection error: ", err)
 		return
 	}
-
+	fmt.Printf("%#v\n", msg)
 	// expecting init
-	if _, ok := msg.(ProtocolInit); !ok {
+	if _, ok := msg.(*ProtocolInit); !ok {
 		fmt.Println("Expecting init protocol")
 		return
 	}
@@ -167,6 +167,8 @@ func handleDGBPConnection(c net.Conn) {
 	for {
 		dbgpConnection.transactionIndex++
 		cmd := cp.GetCommand(dbgpConnection.transactionIndex)
+
+		fmt.Println("process command ", cmd)
 
 		if cmd == "q" || cmd == "quit" {
 			fmt.Println("Quitting debugger")
@@ -180,6 +182,16 @@ func handleDGBPConnection(c net.Conn) {
 			fmt.Println("Error: ", err)
 			break
 		}
+
+		if res, ok := msg.(*ProtocolResponse); ok {
+			// check for errors
+			if res.HasError() {
+				fmt.Println("Error: ", res.Error.Message)
+				continue
+			}
+		}
+
+		fmt.Printf("receive msg %#v\n", msg)
 	}
 	/*
 		dbgpMessage := ""
