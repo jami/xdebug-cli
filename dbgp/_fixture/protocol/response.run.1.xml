@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<response 
+    xmlns="urn:debugger_protocol_v1" 
+    xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="run" transaction_id="6" status="break" reason="ok">
+    <xdebug:message filename="file:///PhpProject1/index.php" lineno="19"></xdebug:message>
+</response>

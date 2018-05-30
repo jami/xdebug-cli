@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<init 
+    xmlns="urn:debugger_protocol_v1" 
+    xmlns:xdebug="http://xdebug.org/dbgp/xdebug" fileuri="file:///PhpProject1/index.php" language="PHP" xdebug:language_version="7.0.4-5ubuntu1" protocol_version="1.0" appid="24001" idekey="jami">
+    <engine version="2.4.0">
+        <![CDATA[Xdebug]]>
+    </engine>
+    <author>
+        <![CDATA[Derick Rethans]]>
+    </author>
+    <url>
+        <![CDATA[http://xdebug.org]]>
+    </url>
+    <copyright>
+        <![CDATA[Copyright (c) 2002-2016 by Derick Rethans]]>
+    </copyright>
+</init>
