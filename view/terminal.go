@@ -11,7 +11,7 @@ import (
 
 const (
 	dbgPrefix             = "(xdbg)"
-	defaultCodeLineLength = 10
+	defaultCodeLineLength = 12
 )
 
 // SourceFileCache caches all the source files
@@ -139,4 +139,9 @@ func (v *View) PrintApplicationInformation(version string, host string, port uin
 	v.PrintLn("xdebug dbgp https://xdebug.org/docs-dbgp.php")
 	v.PrintLn("bug reports to https://github.com/jami/xdebug-cli/issues")
 	v.PrintLn("feel free to contribute!")
+}
+
+// PrintSourceChangeLn called when the current file is different from the previous one
+func (v *View) PrintSourceChangeLn(s string) {
+	v.PrintLn(fmt.Sprintf("source: %s", filepath.Base(s)))
 }

@@ -65,6 +65,7 @@ var _ = Describe("Protocol xml parsing", func() {
 			Ω(responseProto.BreakpointList).Should(HaveLen(1))
 
 			Ω(responseProto.BreakpointList).Should(Equal([]dbgp.ProtocolBreakpoint{{
+				ID:       "240010001",
 				Type:     "line",
 				Line:     19,
 				State:    "enabled",
@@ -163,6 +164,9 @@ var _ = Describe("Protocol xml parsing", func() {
 				Content:     "",
 				Property:    nil,
 			}))
+
+			Ω(responseProto.PropertyList[6].Property).ShouldNot(BeNil())
+			Ω(*responseProto.PropertyList[6].Property).Should(HaveLen(32))
 		})
 	})
 })

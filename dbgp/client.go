@@ -34,6 +34,32 @@ func (c *Client) Init() error {
 	return nil
 }
 
+// GetContext returns the context by id
+func (c *Client) GetContext(contextID int) ([]ProtocolProperty, error) {
+	cmd := fmt.Sprintf("context_get -i %d -c %d", c.Session.NextTransactionID(), contextID)
+	c.Connection.SendMessage(cmd)
+
+	proto, err := c.Connection.GetResponse()
+	if err != nil {
+		return nil, err
+	}
+
+	return proto.PropertyList, nil
+}
+
+// GetContextNames returns the context name mapping
+func (c *Client) GetContextNames() ([]ProtocolContext, error) {
+	cmd := fmt.Sprintf("context_names -i %d -d 0", c.Session.NextTransactionID())
+	c.Connection.SendMessage(cmd)
+
+	proto, err := c.Connection.GetResponse()
+	if err != nil {
+		return nil, err
+	}
+
+	return proto.ContextList, nil
+}
+
 // GetBreakpointList returns the current list of activated bp's
 func (c *Client) GetBreakpointList() ([]ProtocolBreakpoint, error) {
 	bpl := []ProtocolBreakpoint{}
@@ -85,6 +111,23 @@ func (c *Client) SetBreakpoint(file string, line int, expr string) error {
 	}
 
 	return nil
+}
+
+// GetProperty tries fetch a variable by name
+func (c *Client) GetProperty(s string) (*ProtocolResponse, error) {
+	cmd := fmt.Sprintf("property_get -i %d -n %s", c.Session.NextTransactionID(), s)
+	c.Connection.SendMessage(cmd)
+
+	proto, err := c.Connection.GetResponse()
+	if err != nil {
+		return nil, err
+	}
+
+	if proto.HasError() {
+		return nil, fmt.Errorf(proto.Error.Message)
+	}
+
+	return proto, nil
 }
 
 // Step into the next instruction

@@ -14,6 +14,7 @@ type ProtocolInit struct {
 
 // ProtocolBreakpoint data struct
 type ProtocolBreakpoint struct {
+	ID       string `xml:"id,attr"`
 	Type     string `xml:"type,attr"`
 	FileName string `xml:"filename,attr"`
 	Line     int    `xml:"lineno,attr"`
@@ -38,15 +39,17 @@ type ProtocolStack struct {
 
 // ProtocolProperty data struct
 type ProtocolProperty struct {
-	Name        string            `xml:"name,attr"`
-	Fullname    string            `xml:"fullname,attr"`
-	Type        string            `xml:"type,attr"`
-	Children    int               `xml:"children,attr"`
-	NumChildren int               `xml:"numchildren,attr"`
-	Page        int               `xml:"page,attr"`
-	PageSize    int               `xml:"pagesize,attr"`
-	Content     string            `xml:",innerxml"`
-	Property    *ProtocolProperty `xml:"property"`
+	Name        string              `xml:"name,attr"`
+	Fullname    string              `xml:"fullname,attr"`
+	Type        string              `xml:"type,attr"`
+	Children    int                 `xml:"children,attr"`
+	NumChildren int                 `xml:"numchildren,attr"`
+	Size        int                 `xml:"size,attr"`
+	Page        int                 `xml:"page,attr"`
+	PageSize    int                 `xml:"pagesize,attr"`
+	Encoding    string              `xml:"encoding,attr"`
+	Content     string              `xml:",chardata"`
+	Property    *[]ProtocolProperty `xml:"property"`
 }
 
 // ProtocolMessage data struct
@@ -113,6 +116,7 @@ type Session struct {
 	CurrentFile   string
 	CurrentLine   int
 	TargetFiles   []string
+	History       []string
 }
 
 // Server model

@@ -11,7 +11,23 @@ func NewSession() *Session {
 		State:         StateNone,
 		TransactionID: 1,
 		CurrentLine:   1,
+		History:       []string{},
 	}
+}
+
+// AddCommand to the history
+func (s *Session) AddCommand(c string) {
+	s.History = append(s.History, c)
+}
+
+// GetLastCommand from history
+func (s *Session) GetLastCommand() (string, bool) {
+	l := len(s.History)
+	if l == 0 {
+		return "", false
+	}
+
+	return s.History[l-1], true
 }
 
 // SetTargetFiles return all possible execution files

@@ -7,55 +7,82 @@ breakpoint_list -i 1
 
 breakpoint_set -i 2 -t line -f file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php -n 3
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="2" id="101430001"></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="2" id="101430001">
+</response>
 
 breakpoint_set -i 3 -t line -f file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php -n 14
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="3" id="101430002"></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="3" id="101430002">
+</response>
 
 breakpoint_list -i 4
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_list" transaction_id="4"><breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="14" state="enabled" hit_count="0" hit_value="0" id="101430002"></breakpoint><breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3" state="enabled" hit_count="0" hit_value="0" id="101430001"></breakpoint></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_list" transaction_id="4">
+    <breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="14" state="enabled" hit_count="0" hit_value="0" id="101430002"></breakpoint>
+    <breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3" state="enabled" hit_count="0" hit_value="0" id="101430001"></breakpoint>
+</response>
 
 breakpoint_list -i 5
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_list" transaction_id="5"><breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="14" state="enabled" hit_count="0" hit_value="0" id="101430002"></breakpoint><breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3" state="enabled" hit_count="0" hit_value="0" id="101430001"></breakpoint></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_list" transaction_id="5">
+    <breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="14" state="enabled" hit_count="0" hit_value="0" id="101430002"></breakpoint>
+    <breakpoint type="line" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3" state="enabled" hit_count="0" hit_value="0" id="101430001"></breakpoint>
+</response>
 
 breakpoint_set -i 6 -t exception -x *
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="6" id="101430003"></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="breakpoint_set" transaction_id="6" id="101430003">
+</response>
 
 run -i 7
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="run" transaction_id="7" status="break" reason="ok"><xdebug:message filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3"></xdebug:message></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="run" transaction_id="7" status="break" reason="ok">
+    <xdebug:message filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3"></xdebug:message>
+</response>
 
 stack_get -i 8
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="8"><stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3"></stack></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="8">
+    <stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="3"></stack>
+</response>
 
 context_names -i 9 -d 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="9"><context name="Locals" id="0"></context><context name="Superglobals" id="1"></context><context name="User defined constants" id="2"></context></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="9">
+    <context name="Locals" id="0"></context>
+    <context name="Superglobals" id="1"></context>
+    <context name="User defined constants" id="2"></context>
+</response>
 
 context_get -i 10 -d 0 -c 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="10" context="0"><property name="$bar" fullname="$bar" type="uninitialized"></property></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="10" context="0">
+    <property name="$bar" fullname="$bar" type="uninitialized"></property>
+</response>
 
 step_into -i 11
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="step_into" transaction_id="11" status="break" reason="ok"><xdebug:message filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="7"></xdebug:message></response>
+    <response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="step_into" transaction_id="11" status="break" reason="ok"><xdebug:message filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="7"></xdebug:message>
+</response>
 
 stack_get -i 12
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="12"><stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="7"></stack></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="12">
+    <stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="7"></stack>
+</response>
 
 context_names -i 13 -d 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="13"><context name="Locals" id="0"></context><context name="Superglobals" id="1"></context><context name="User defined constants" id="2"></context></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="13">
+    <context name="Locals" id="0"></context><context name="Superglobals" id="1"></context>
+    <context name="User defined constants" id="2"></context>
+</response>
 
 context_get -i 14 -d 0 -c 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="14" context="0"><property name="$bar" fullname="$bar" type="uninitialized"></property></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="14" context="0">
+    <property name="$bar" fullname="$bar" type="uninitialized"></property>
+</response>
 
 step_into -i 15
 <?xml version="1.0" encoding="iso-8859-1"?>
@@ -79,11 +106,17 @@ step_over -i 19
 
 stack_get -i 20
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="20"><stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="15"></stack></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="stack_get" transaction_id="20">
+    <stack where="{main}" level="0" type="file" filename="file:///home/jami/Development/go/src/github.com/jami/xdebug-cli/_example/test.php" lineno="15"></stack>
+</response>
 
 context_names -i 21 -d 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="21"><context name="Locals" id="0"></context><context name="Superglobals" id="1"></context><context name="User defined constants" id="2"></context></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="21">
+    <context name="Locals" id="0"></context>
+    <context name="Superglobals" id="1"></context>
+    <context name="User defined constants" id="2"></context>
+</response>
 
 context_get -i 22 -d 0 -c 0
 <?xml version="1.0" encoding="iso-8859-1"?>
@@ -134,15 +167,45 @@ stack_get -i 8
 
 context_names -i 9 -d 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="9"><context name="Locals" id="0"></context><context name="Superglobals" id="1"></context><context name="User defined constants" id="2"></context></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_names" transaction_id="9">
+    <context name="Locals" id="0"></context>
+    <context name="Superglobals" id="1"></context>
+    <context name="User defined constants" id="2"></context>
+</response>
 
 context_get -i 10 -d 0 -c 0
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="10" context="0"><property name="$bar" fullname="$bar" type="uninitialized"></property></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="10" context="0">
+    <property name="$bar" fullname="$bar" type="uninitialized"></property>
+</response>
 
 context_get -i 11 -d 0 -c 1
 <?xml version="1.0" encoding="iso-8859-1"?>
-<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="11" context="1"><property name="$_COOKIE" fullname="$_COOKIE" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_ENV" fullname="$_ENV" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_FILES" fullname="$_FILES" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_GET" fullname="$_GET" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_POST" fullname="$_POST" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_REQUEST" fullname="$_REQUEST" type="array" children="0" numchildren="0" page="0" pagesize="32"></property><property name="$_SERVER" fullname="$_SERVER" type="array" children="1" numchildren="82" page="0" pagesize="32"><property name="XDG_VTNR" fullname="$_SERVER[&#39;XDG_VTNR&#39;]" type="string" size="1" encoding="base64"><![CDATA[Nw==]]></property><property name="LC_PAPER" fullname="$_SERVER[&#39;LC_PAPER&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="LC_ADDRESS" fullname="$_SERVER[&#39;LC_ADDRESS&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="XDG_SESSION_ID" fullname="$_SERVER[&#39;XDG_SESSION_ID&#39;]" type="string" size="2" encoding="base64"><![CDATA[YzI=]]></property><property name="XDG_GREETER_DATA_DIR" fullname="$_SERVER[&#39;XDG_GREETER_DATA_DIR&#39;]" type="string" size="26" encoding="base64"><![CDATA[L3Zhci9saWIvbGlnaHRkbS1kYXRhL2phbWk=]]></property><property name="LC_MONETARY" fullname="$_SERVER[&#39;LC_MONETARY&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="CLUTTER_IM_MODULE" fullname="$_SERVER[&#39;CLUTTER_IM_MODULE&#39;]" type="string" size="3" encoding="base64"><![CDATA[eGlt]]></property><property name="SESSION" fullname="$_SERVER[&#39;SESSION&#39;]" type="string" size="5" encoding="base64"><![CDATA[Z25vbWU=]]></property><property name="ANDROID_HOME" fullname="$_SERVER[&#39;ANDROID_HOME&#39;]" type="string" size="23" encoding="base64"><![CDATA[L2hvbWUvamFtaS9BbmRyb2lkL1Nkay8=]]></property><property name="GPG_AGENT_INFO" fullname="$_SERVER[&#39;GPG_AGENT_INFO&#39;]" type="string" size="33" encoding="base64"><![CDATA[L2hvbWUvamFtaS8uZ251cGcvUy5ncGctYWdlbnQ6MDox]]></property><property name="TERM" fullname="$_SERVER[&#39;TERM&#39;]" type="string" size="14" encoding="base64"><![CDATA[eHRlcm0tMjU2Y29sb3I=]]></property><property name="VTE_VERSION" fullname="$_SERVER[&#39;VTE_VERSION&#39;]" type="string" size="4" encoding="base64"><![CDATA[NDIwNQ==]]></property><property name="XDG_MENU_PREFIX" fullname="$_SERVER[&#39;XDG_MENU_PREFIX&#39;]" type="string" size="6" encoding="base64"><![CDATA[Z25vbWUt]]></property><property name="SHELL" fullname="$_SERVER[&#39;SHELL&#39;]" type="string" size="9" encoding="base64"><![CDATA[L2Jpbi9iYXNo]]></property><property name="QT_LINUX_ACCESSIBILITY_ALWAYS_ON" fullname="$_SERVER[&#39;QT_LINUX_ACCESSIBILITY_ALWAYS_ON&#39;]" type="string" size="1" encoding="base64"><![CDATA[MQ==]]></property><property name="GJS_DEBUG_OUTPUT" fullname="$_SERVER[&#39;GJS_DEBUG_OUTPUT&#39;]" type="string" size="6" encoding="base64"><![CDATA[c3RkZXJy]]></property><property name="WINDOWID" fullname="$_SERVER[&#39;WINDOWID&#39;]" type="string" size="8" encoding="base64"><![CDATA[MzM1NTQ0Mzg=]]></property><property name="LC_NUMERIC" fullname="$_SERVER[&#39;LC_NUMERIC&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="UPSTART_SESSION" fullname="$_SERVER[&#39;UPSTART_SESSION&#39;]" type="string" size="51" encoding="base64"><![CDATA[dW5peDphYnN0cmFjdD0vY29tL3VidW50dS91cHN0YXJ0LXNlc3Npb24vMTAwMC81ODg5]]></property><property name="GNOME_KEYRING_CONTROL" fullname="$_SERVER[&#39;GNOME_KEYRING_CONTROL&#39;]" type="string" size="0" encoding="base64"><![CDATA[]]></property><property name="GJS_DEBUG_TOPICS" fullname="$_SERVER[&#39;GJS_DEBUG_TOPICS&#39;]" type="string" size="15" encoding="base64"><![CDATA[SlMgRVJST1I7SlMgTE9H]]></property><property name="GTK_MODULES" fullname="$_SERVER[&#39;GTK_MODULES&#39;]" type="string" size="15" encoding="base64"><![CDATA[Z2FpbDphdGstYnJpZGdl]]></property><property name="USER" fullname="$_SERVER[&#39;USER&#39;]" type="string" size="4" encoding="base64"><![CDATA[amFtaQ==]]></property><property name="LS_COLORS" fullname="$_SERVER[&#39;LS_COLORS&#39;]" type="string" size="1405" encoding="base64"><![CDATA[cnM9MDpkaT0wMTszNDpsbj0wMTszNjptaD0wMDpwaT00MDszMzpzbz0wMTszNTpkbz0wMTszNTpiZD00MDszMzswMTpjZD00MDszMzswMTpvcj00MDszMTswMTptaT0wMDpzdT0zNzs0MTpzZz0zMDs0MzpjYT0zMDs0MTp0dz0zMDs0Mjpvdz0zNDs0MjpzdD0zNzs0NDpleD0wMTszMjoqLnRhcj0wMTszMToqLnRnej0wMTszMToqLmFyYz0wMTszMToqLmFyaj0wMTszMToqLnRhej0wMTszMToqLmxoYT0wMTszMToqLmx6ND0wMTszMToqLmx6aD0wMTszMToqLmx6bWE9MDE7MzE6Ki50bHo9MDE7MzE6Ki50eHo9MDE7MzE6Ki50em89MDE7MzE6Ki50N3o9MDE7MzE6Ki56aXA9MDE7MzE6Ki56PTAxOzMxOiouWj0wMTszMToqLmR6PTAxOzMxOiouZ3o9MDE7MzE6Ki5scno9MDE7MzE6Ki5sej0wMTszMToqLmx6bz0wMTszMToqLnh6PTAxOzMxOiouYnoyPTAxOzMxOiouYno9MDE7MzE6Ki50Yno9MDE7MzE6Ki50YnoyPTAxOzMxOioudHo9MDE7MzE6Ki5kZWI9MDE7MzE6Ki5ycG09MDE7MzE6Ki5qYXI9MDE7MzE6Ki53YXI9MDE7MzE6Ki5lYXI9MDE7MzE6Ki5zYXI9MDE7MzE6Ki5yYXI9MDE7MzE6Ki5hbHo9MDE7MzE6Ki5hY2U9MDE7MzE6Ki56b289MDE7MzE6Ki5jcGlvPTAxOzMxOiouN3o9MDE7MzE6Ki5yej0wMTszMToqLmNhYj0wMTszMToqLmpwZz0wMTszNToqLmpwZWc9MDE7MzU6Ki5naWY9MDE7MzU6Ki5ibXA9MDE7MzU6Ki5wYm09MDE7MzU6Ki5wZ209MDE7MzU6Ki5wcG09MDE7MzU6Ki50Z2E9MDE7MzU6Ki54Ym09MDE7MzU6Ki54cG09MDE7MzU6Ki50aWY9MDE7MzU6Ki50aWZmPTAxOzM1OioucG5nPTAxOzM1Oiouc3ZnPTAxOzM1Oiouc3Znej0wMTszNToqLm1uZz0wMTszNToqLnBjeD0wMTszNToqLm1vdj0wMTszNToqLm1wZz0wMTszNToqLm1wZWc9MDE7MzU6Ki5tMnY9MDE7MzU6Ki5ta3Y9MDE7MzU6Ki53ZWJtPTAxOzM1Oioub2dtPTAxOzM1OioubXA0PTAxOzM1OioubTR2PTAxOzM1OioubXA0dj0wMTszNToqLnZvYj0wMTszNToqLnF0PTAxOzM1OioubnV2PTAxOzM1Oioud212PTAxOzM1OiouYQ==]]></property><property name="QT_ACCESSIBILITY" fullname="$_SERVER[&#39;QT_ACCESSIBILITY&#39;]" type="string" size="1" encoding="base64"><![CDATA[MQ==]]></property><property name="LC_TELEPHONE" fullname="$_SERVER[&#39;LC_TELEPHONE&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="XDG_SESSION_PATH" fullname="$_SERVER[&#39;XDG_SESSION_PATH&#39;]" type="string" size="40" encoding="base64"><![CDATA[L29yZy9mcmVlZGVza3RvcC9EaXNwbGF5TWFuYWdlci9TZXNzaW9uMA==]]></property><property name="XDG_SEAT_PATH" fullname="$_SERVER[&#39;XDG_SEAT_PATH&#39;]" type="string" size="37" encoding="base64"><![CDATA[L29yZy9mcmVlZGVza3RvcC9EaXNwbGF5TWFuYWdlci9TZWF0MA==]]></property><property name="SSH_AUTH_SOCK" fullname="$_SERVER[&#39;SSH_AUTH_SOCK&#39;]" type="string" size="26" encoding="base64"><![CDATA[L3J1bi91c2VyLzEwMDAva2V5cmluZy9zc2g=]]></property><property name="SESSION_MANAGER" fullname="$_SERVER[&#39;SESSION_MANAGER&#39;]" type="string" size="63" encoding="base64"><![CDATA[bG9jYWwvc2hvZG86QC90bXAvLklDRS11bml4LzYxNDEsdW5peC9zaG9kbzovdG1wLy5JQ0UtdW5peC82MTQx]]></property><property name="DEFAULTS_PATH" fullname="$_SERVER[&#39;DEFAULTS_PATH&#39;]" type="string" size="35" encoding="base64"><![CDATA[L3Vzci9zaGFyZS9nY29uZi9nbm9tZS5kZWZhdWx0LnBhdGg=]]></property><property name="XDG_CONFIG_DIRS" fullname="$_SERVER[&#39;XDG_CONFIG_DIRS&#39;]" type="string" size="50" encoding="base64"><![CDATA[L2V0Yy94ZGcveGRnLWdub21lOi91c3Ivc2hhcmUvdXBzdGFydC94ZGc6L2V0Yy94ZGc=]]></property></property></response>
+<response xmlns="urn:debugger_protocol_v1" xmlns:xdebug="http://xdebug.org/dbgp/xdebug" command="context_get" transaction_id="11" context="1">
+    <property name="$_COOKIE" fullname="$_COOKIE" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_ENV" fullname="$_ENV" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_FILES" fullname="$_FILES" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_GET" fullname="$_GET" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_POST" fullname="$_POST" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_REQUEST" fullname="$_REQUEST" type="array" children="0" numchildren="0" page="0" pagesize="32"></property>
+    <property name="$_SERVER" fullname="$_SERVER" type="array" children="1" numchildren="82" page="0" pagesize="32">
+        <property name="XDG_VTNR" fullname="$_SERVER[&#39;XDG_VTNR&#39;]" type="string" size="1" encoding="base64"><![CDATA[Nw==]]></property>
+        <property name="LC_PAPER" fullname="$_SERVER[&#39;LC_PAPER&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property>
+        <property name="LC_ADDRESS" fullname="$_SERVER[&#39;LC_ADDRESS&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property>
+        <property name="XDG_SESSION_ID" fullname="$_SERVER[&#39;XDG_SESSION_ID&#39;]" type="string" size="2" encoding="base64"><![CDATA[YzI=]]></property>
+        <property name="XDG_GREETER_DATA_DIR" fullname="$_SERVER[&#39;XDG_GREETER_DATA_DIR&#39;]" type="string" size="26" encoding="base64"><![CDATA[L3Zhci9saWIvbGlnaHRkbS1kYXRhL2phbWk=]]></property>
+        <property name="LC_MONETARY" fullname="$_SERVER[&#39;LC_MONETARY&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property>
+        <property name="CLUTTER_IM_MODULE" fullname="$_SERVER[&#39;CLUTTER_IM_MODULE&#39;]" type="string" size="3" encoding="base64"><![CDATA[eGlt]]></property>
+        <property name="SESSION" fullname="$_SERVER[&#39;SESSION&#39;]" type="string" size="5" encoding="base64"><![CDATA[Z25vbWU=]]></property>
+        <property name="ANDROID_HOME" fullname="$_SERVER[&#39;ANDROID_HOME&#39;]" type="string" size="23" encoding="base64"><![CDATA[L2hvbWUvamFtaS9BbmRyb2lkL1Nkay8=]]></property>
+        <property name="GPG_AGENT_INFO" fullname="$_SERVER[&#39;GPG_AGENT_INFO&#39;]" type="string" size="33" encoding="base64"><![CDATA[L2hvbWUvamFtaS8uZ251cGcvUy5ncGctYWdlbnQ6MDox]]></property>
+        <property name="TERM" fullname="$_SERVER[&#39;TERM&#39;]" type="string" size="14" encoding="base64"><![CDATA[eHRlcm0tMjU2Y29sb3I=]]></property>
+        <property name="VTE_VERSION" fullname="$_SERVER[&#39;VTE_VERSION&#39;]" type="string" size="4" encoding="base64"><![CDATA[NDIwNQ==]]></property>
+        <property name="XDG_MENU_PREFIX" fullname="$_SERVER[&#39;XDG_MENU_PREFIX&#39;]" type="string" size="6" encoding="base64"><![CDATA[Z25vbWUt]]></property>
+        <property name="SHELL" fullname="$_SERVER[&#39;SHELL&#39;]" type="string" size="9" encoding="base64"><![CDATA[L2Jpbi9iYXNo]]></property>
+        <property name="QT_LINUX_ACCESSIBILITY_ALWAYS_ON" fullname="$_SERVER[&#39;QT_LINUX_ACCESSIBILITY_ALWAYS_ON&#39;]" type="string" size="1" encoding="base64"><![CDATA[MQ==]]></property><property name="GJS_DEBUG_OUTPUT" fullname="$_SERVER[&#39;GJS_DEBUG_OUTPUT&#39;]" type="string" size="6" encoding="base64"><![CDATA[c3RkZXJy]]></property><property name="WINDOWID" fullname="$_SERVER[&#39;WINDOWID&#39;]" type="string" size="8" encoding="base64"><![CDATA[MzM1NTQ0Mzg=]]></property><property name="LC_NUMERIC" fullname="$_SERVER[&#39;LC_NUMERIC&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="UPSTART_SESSION" fullname="$_SERVER[&#39;UPSTART_SESSION&#39;]" type="string" size="51" encoding="base64"><![CDATA[dW5peDphYnN0cmFjdD0vY29tL3VidW50dS91cHN0YXJ0LXNlc3Npb24vMTAwMC81ODg5]]></property><property name="GNOME_KEYRING_CONTROL" fullname="$_SERVER[&#39;GNOME_KEYRING_CONTROL&#39;]" type="string" size="0" encoding="base64"><![CDATA[]]></property><property name="GJS_DEBUG_TOPICS" fullname="$_SERVER[&#39;GJS_DEBUG_TOPICS&#39;]" type="string" size="15" encoding="base64"><![CDATA[SlMgRVJST1I7SlMgTE9H]]></property><property name="GTK_MODULES" fullname="$_SERVER[&#39;GTK_MODULES&#39;]" type="string" size="15" encoding="base64"><![CDATA[Z2FpbDphdGstYnJpZGdl]]></property><property name="USER" fullname="$_SERVER[&#39;USER&#39;]" type="string" size="4" encoding="base64"><![CDATA[amFtaQ==]]></property><property name="LS_COLORS" fullname="$_SERVER[&#39;LS_COLORS&#39;]" type="string" size="1405" encoding="base64"><![CDATA[cnM9MDpkaT0wMTszNDpsbj0wMTszNjptaD0wMDpwaT00MDszMzpzbz0wMTszNTpkbz0wMTszNTpiZD00MDszMzswMTpjZD00MDszMzswMTpvcj00MDszMTswMTptaT0wMDpzdT0zNzs0MTpzZz0zMDs0MzpjYT0zMDs0MTp0dz0zMDs0Mjpvdz0zNDs0MjpzdD0zNzs0NDpleD0wMTszMjoqLnRhcj0wMTszMToqLnRnej0wMTszMToqLmFyYz0wMTszMToqLmFyaj0wMTszMToqLnRhej0wMTszMToqLmxoYT0wMTszMToqLmx6ND0wMTszMToqLmx6aD0wMTszMToqLmx6bWE9MDE7MzE6Ki50bHo9MDE7MzE6Ki50eHo9MDE7MzE6Ki50em89MDE7MzE6Ki50N3o9MDE7MzE6Ki56aXA9MDE7MzE6Ki56PTAxOzMxOiouWj0wMTszMToqLmR6PTAxOzMxOiouZ3o9MDE7MzE6Ki5scno9MDE7MzE6Ki5sej0wMTszMToqLmx6bz0wMTszMToqLnh6PTAxOzMxOiouYnoyPTAxOzMxOiouYno9MDE7MzE6Ki50Yno9MDE7MzE6Ki50YnoyPTAxOzMxOioudHo9MDE7MzE6Ki5kZWI9MDE7MzE6Ki5ycG09MDE7MzE6Ki5qYXI9MDE7MzE6Ki53YXI9MDE7MzE6Ki5lYXI9MDE7MzE6Ki5zYXI9MDE7MzE6Ki5yYXI9MDE7MzE6Ki5hbHo9MDE7MzE6Ki5hY2U9MDE7MzE6Ki56b289MDE7MzE6Ki5jcGlvPTAxOzMxOiouN3o9MDE7MzE6Ki5yej0wMTszMToqLmNhYj0wMTszMToqLmpwZz0wMTszNToqLmpwZWc9MDE7MzU6Ki5naWY9MDE7MzU6Ki5ibXA9MDE7MzU6Ki5wYm09MDE7MzU6Ki5wZ209MDE7MzU6Ki5wcG09MDE7MzU6Ki50Z2E9MDE7MzU6Ki54Ym09MDE7MzU6Ki54cG09MDE7MzU6Ki50aWY9MDE7MzU6Ki50aWZmPTAxOzM1OioucG5nPTAxOzM1Oiouc3ZnPTAxOzM1Oiouc3Znej0wMTszNToqLm1uZz0wMTszNToqLnBjeD0wMTszNToqLm1vdj0wMTszNToqLm1wZz0wMTszNToqLm1wZWc9MDE7MzU6Ki5tMnY9MDE7MzU6Ki5ta3Y9MDE7MzU6Ki53ZWJtPTAxOzM1Oioub2dtPTAxOzM1OioubXA0PTAxOzM1OioubTR2PTAxOzM1OioubXA0dj0wMTszNToqLnZvYj0wMTszNToqLnF0PTAxOzM1OioubnV2PTAxOzM1Oioud212PTAxOzM1OiouYQ==]]></property><property name="QT_ACCESSIBILITY" fullname="$_SERVER[&#39;QT_ACCESSIBILITY&#39;]" type="string" size="1" encoding="base64"><![CDATA[MQ==]]></property><property name="LC_TELEPHONE" fullname="$_SERVER[&#39;LC_TELEPHONE&#39;]" type="string" size="11" encoding="base64"><![CDATA[ZGVfREUuVVRGLTg=]]></property><property name="XDG_SESSION_PATH" fullname="$_SERVER[&#39;XDG_SESSION_PATH&#39;]" type="string" size="40" encoding="base64"><![CDATA[L29yZy9mcmVlZGVza3RvcC9EaXNwbGF5TWFuYWdlci9TZXNzaW9uMA==]]></property><property name="XDG_SEAT_PATH" fullname="$_SERVER[&#39;XDG_SEAT_PATH&#39;]" type="string" size="37" encoding="base64"><![CDATA[L29yZy9mcmVlZGVza3RvcC9EaXNwbGF5TWFuYWdlci9TZWF0MA==]]></property><property name="SSH_AUTH_SOCK" fullname="$_SERVER[&#39;SSH_AUTH_SOCK&#39;]" type="string" size="26" encoding="base64"><![CDATA[L3J1bi91c2VyLzEwMDAva2V5cmluZy9zc2g=]]></property><property name="SESSION_MANAGER" fullname="$_SERVER[&#39;SESSION_MANAGER&#39;]" type="string" size="63" encoding="base64"><![CDATA[bG9jYWwvc2hvZG86QC90bXAvLklDRS11bml4LzYxNDEsdW5peC9zaG9kbzovdG1wLy5JQ0UtdW5peC82MTQx]]></property><property name="DEFAULTS_PATH" fullname="$_SERVER[&#39;DEFAULTS_PATH&#39;]" type="string" size="35" encoding="base64"><![CDATA[L3Vzci9zaGFyZS9nY29uZi9nbm9tZS5kZWZhdWx0LnBhdGg=]]></property><property name="XDG_CONFIG_DIRS" fullname="$_SERVER[&#39;XDG_CONFIG_DIRS&#39;]" type="string" size="50" encoding="base64"><![CDATA[L2V0Yy94ZGcveGRnLWdub21lOi91c3Ivc2hhcmUvdXBzdGFydC94ZGc6L2V0Yy94ZGc=]]></property>
+    </property>
+</response>
 
 context_get -i 12 -d 0 -c 2
 <?xml version="1.0" encoding="iso-8859-1"?>

@@ -14,6 +14,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const (
+	maxLinesPerList = 12
+)
+
 // listeningCmd represents the dbg listening mode
 var listeningCmd = &cobra.Command{
 	Use:   "listen",
@@ -57,12 +61,18 @@ func listenAccept(c *dbgp.Connection) {
 
 	// set per default
 	client.SetExceptionBreakpoint()
-
+	// terminal view
 	view := view.NewView()
 
 	for {
 		view.PrintInputPrefix()
 		cmdBuffer := strings.TrimSpace(view.GetInputLine())
+
+		lc, hasCommands := client.Session.GetLastCommand()
+		if cmdBuffer == "" && hasCommands {
+			cmdBuffer = lc
+		}
+
 		cmdSlice := strings.Split(cmdBuffer, " ")
 
 		if len(cmdSlice) == 0 || len(cmdSlice[0]) == 0 {
@@ -76,8 +86,7 @@ func listenAccept(c *dbgp.Connection) {
 			confirmation := strings.TrimSpace(view.GetInputLine())
 
 			if confirmation == "y" {
-				view.PrintLn("closing debug session")
-				return
+				client.Session.State = dbgp.StateStopped
 			}
 		case "h", "help", "?":
 			view.ShowHelpMessage()
@@ -95,8 +104,16 @@ func listenAccept(c *dbgp.Connection) {
 			next(view, client)
 		case "finish", "f":
 			finish(view, client)
+		case "print", "p":
+			print(view, cmdSlice, client)
+		case "context", "c":
+			context(view, cmdSlice, client)
 		default:
 			view.PrintErrorLn("Unknown command. Try help")
+		}
+
+		if len(cmdBuffer) > 0 {
+			client.Session.AddCommand(cmdBuffer)
 		}
 
 		if client.Session.State == dbgp.StateStopped {
@@ -106,8 +123,76 @@ func listenAccept(c *dbgp.Connection) {
 	}
 }
 
+func context(view *view.View, args []string, c *dbgp.Client) {
+	names, err := c.GetContextNames()
+	if err != nil {
+		view.PrintErrorLn(err.Error())
+		return
+	}
+
+	scope := 0
+	if len(args) > 1 {
+		switch sn := args[1]; sn {
+		case "help", "?":
+			view.ShowContextHelpMessage()
+			return
+		case "local":
+			scope = 0
+		case "global":
+			scope = 1
+		case "constant":
+			scope = 2
+		default:
+			scope = 0
+		}
+	}
+
+	scopeExists := false
+	scopeName := "local"
+	for _, sc := range names {
+		if sc.ID == strconv.Itoa(scope) {
+			scopeExists = true
+			scopeName = sc.Name
+			break
+		}
+	}
+
+	if !scopeExists {
+		scope = 0
+	}
+
+	propertyList, err := c.GetContext(scope)
+	if err != nil {
+		view.PrintErrorLn(err.Error())
+		return
+	}
+
+	view.PrintPropertyListWithDetails(scopeName, propertyList)
+}
+
+func print(view *view.View, args []string, c *dbgp.Client) {
+	if len(args) < 2 {
+		view.ShowPrintHelpMessage()
+		return
+	}
+
+	t := strings.Join(args[1:], " ")
+
+	resp, err := c.GetProperty(t)
+	if err != nil {
+		view.PrintErrorLn(err.Error())
+		return
+	}
+
+	view.PrintPropertyListWithDetails("local", resp.PropertyList)
+}
+
 func showCodeLines(view *view.View, c *dbgp.Client) {
-	view.PrintSourceLn(c.Session.CurrentFile, c.Session.CurrentLine, 10)
+	l := c.Session.CurrentLine - (maxLinesPerList / 2)
+	if l < 1 {
+		l = 1
+	}
+	view.PrintSourceLn(c.Session.CurrentFile, l, maxLinesPerList)
 }
 
 func updateState(view *view.View, resp *dbgp.ProtocolResponse, c *dbgp.Client) {
@@ -119,6 +204,11 @@ func updateState(view *view.View, resp *dbgp.ProtocolResponse, c *dbgp.Client) {
 	switch resp.Status {
 	case "break":
 		c.Session.State = dbgp.StateBreak
+
+		if c.Session.CurrentFile != resp.Message.Filename {
+			view.PrintSourceChangeLn(resp.Message.Filename)
+		}
+
 		c.Session.CurrentFile = resp.Message.Filename
 		c.Session.CurrentLine = resp.Message.Line
 
