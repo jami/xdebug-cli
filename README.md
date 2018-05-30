@@ -1,6 +1,6 @@
 # XDebug CLI
 
-[![Build Status](https://travis-ci.org/axelspringer/mango.svg?branch=master)](https://travis-ci.org/axelspringer/mango.svg?branch=master)
+[![Build Status](https://travis-ci.org/jami/xdebug-cli.svg?branch=master)](https://travis-ci.org/jami/xdebug-cli.svg?branch=master)
 [![Taylor Swift](https://img.shields.io/badge/secured%20by-taylor%20swift-brightgreen.svg)](https://twitter.com/SwiftOnSecurity)
 [![Volkswagen](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
 
