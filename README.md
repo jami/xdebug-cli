@@ -85,6 +85,22 @@ Step over the next instruction
 
     (xgdb) next
 
+### print
+
+Prints information about a variable
+
+    (xgdb) print $_SERVER
+
+### context
+
+Print properties in a given context at a given stack depth
+
+* local
+* global
+* constant
+
+    (xgdb) context local
+
 ### finish
 
 Close the current debug session
