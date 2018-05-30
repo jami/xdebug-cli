@@ -68,6 +68,7 @@ var _ = Describe("Protocol xml parsing", func() {
 				Type:     "line",
 				Line:     19,
 				State:    "enabled",
+				FileName: "file:///home/jami/NetBeansProjects/PhpProject1/index.php",
 				HitCount: 0,
 			}}))
 		})
