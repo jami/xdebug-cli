@@ -47,10 +47,10 @@ build/local:
 build/release:
 	@echo "Compiling..."
 	@mkdir -p ./bin
-	@gox $(LDFLAGS) -tags netgo -ldflags '-w -extldflags "-static"' -output "bin/${BINARY}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
+	@gox $(LDFLAGS) -ldflags '-w -extldflags "-static"' -output "bin/${BINARY}_{{.OS}}_{{.Arch}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
 	@echo "All done! The binaries is in ./bin let's have fun!"
  
-build/docker: build
+build/docker: build/release
 	@docker build -t xdbg-example:latest .
 
 vet: ## run go vet

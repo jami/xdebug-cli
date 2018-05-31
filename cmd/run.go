@@ -2,7 +2,13 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"time"
 
+	"github.com/jami/xdebug-cli/cfg"
+	"github.com/jami/xdebug-cli/dbgp"
+	"github.com/jami/xdebug-cli/view"
 	"github.com/spf13/cobra"
 )
 
@@ -12,20 +18,48 @@ var runCmd = &cobra.Command{
 	Short: "starts xdbg with script",
 	Long:  `starts xdbg with script`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run called")
+		runRunCmd(args)
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(runCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func runRunCmd(args []string) {
+	server := dbgp.NewServer(CLIArgs.Host, CLIArgs.Port)
+	if err := server.Listen(); err != nil {
+		fmt.Printf("Error while starting server. %s\n", err)
+		os.Exit(1)
+	}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// helloCmd.PersistentFlags().String("foo", "", "A help for foo")
+	view := view.NewView()
+	view.PrintApplicationInformation(cfg.Version, CLIArgs.Host, CLIArgs.Port)
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// helloCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	go startScriptEngine(args)
+	server.Accept(listenAccept)
+}
+
+func startScriptEngine(args []string) error {
+	time.Sleep(2 * time.Second)
+
+	execCmd := args[0]
+	execArgs := []string{}
+	// inject connection parameter
+	execArgs = append(execArgs, fmt.Sprintf("-dxdebug.remote_host=%s", CLIArgs.Host))
+	execArgs = append(execArgs, fmt.Sprintf("-dxdebug.remote_port=%d", CLIArgs.Port))
+	// inject rest of args
+	execArgs = append(execArgs, args[1:]...)
+	// prepare command
+	cmd := exec.Command(execCmd, execArgs...)
+	//cmd.Stdout = os.Stdout
+	//cmd.Stderr = os.Stderr
+	cmd.Env = os.Environ()
+	// exec
+	err := cmd.Start()
+	if err != nil {
+		return err
+	}
+	// wait until process is done
+	return cmd.Wait()
 }

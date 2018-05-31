@@ -15,6 +15,11 @@ class Bar {
     }
 }
 
+$a = [
+    "foo1" => "bar",
+    "foo2" => 1,
+    "foo3" => true
+];
 
 $bar = new Bar();
 echo $bar->toString(); 

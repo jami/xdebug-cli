@@ -119,7 +119,15 @@ Show a list with all breakpoints that are set
 
 ## Example
 
-Simple listening mode
+Listening mode
 
     xdbg listen -h 127.0.0.1 -p 9000
+
+Run mode
+
+    xdbg run -- php _examples/test.php
+  
+Hot pluging xdebug lib and some options
+
+    php -d zend_extension=xdebug.so -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 test.php
 
