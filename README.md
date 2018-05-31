@@ -12,6 +12,10 @@ XDebug-cli or xdbg is a cli xdebug client. The debugging flow is gdb oriented.
 
 You can use xdebug-cli like any other PHP debugger. You specify a host and a port where xdebug dbgp can connect to. If then a PHP script is executed a xdebug-cli debug session is created and you can interact via CLI.
 
+## Demo
+
+![gif](./demo_wt.gif)
+
 ## Build
 
 Build xdebug-cli local
