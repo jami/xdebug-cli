@@ -99,6 +99,7 @@ Print properties in a given context at a given stack depth
 * global
 * constant
 
+
     (xgdb) context local
 
 ### finish
