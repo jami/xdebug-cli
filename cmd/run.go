@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"time"
 
 	"github.com/jami/xdebug-cli/cfg"
 	"github.com/jami/xdebug-cli/dbgp"
@@ -41,8 +40,6 @@ func runRunCmd(args []string) {
 }
 
 func startScriptEngine(args []string) error {
-	time.Sleep(2 * time.Second)
-
 	execCmd := args[0]
 	execArgs := []string{}
 	// inject connection parameter

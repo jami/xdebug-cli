@@ -91,6 +91,26 @@ func (c *Client) SetExceptionBreakpoint() error {
 	return nil
 }
 
+// SetBreakpointToCall creates a call breakpoint
+func (c *Client) SetBreakpointToCall(funcName string) error {
+	cmd := fmt.Sprintf(
+		"breakpoint_set -i %d -t call -m %s",
+		c.Session.NextTransactionID(),
+		funcName)
+
+	c.Connection.SendMessage(cmd)
+	proto, err := c.Connection.GetResponse()
+	if err != nil {
+		return err
+	}
+
+	if proto.HasError() {
+		return fmt.Errorf(proto.Error.Message)
+	}
+
+	return nil
+}
+
 // SetBreakpoint creates a breakpoint
 func (c *Client) SetBreakpoint(file string, line int, expr string) error {
 	fmtExpr := ""

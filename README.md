@@ -132,3 +132,6 @@ Hot pluging xdebug lib and some options
 
     php -d zend_extension=xdebug.so -d xdebug.remote_host=127.0.0.1 -d xdebug.remote_port=9000 test.php
 
+Build and run
+
+    make && ./bin/xdbg run -- php _example/test.php

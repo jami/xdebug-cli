@@ -31,6 +31,7 @@ var listeningCmd = &cobra.Command{
 var (
 	matchBreakLine = regexp.MustCompile("^:(\\d+)(.+)?$")
 	matchBreakFile = regexp.MustCompile("^([^:]+):(\\d+)(.+)?$")
+	matchBreakCall = regexp.MustCompile("^call (.+)$")
 )
 
 func init() {
@@ -300,21 +301,31 @@ func setBreakpoint(view *view.View, args []string, c *dbgp.Client) {
 
 		if len(result) > 2 {
 			expr = strings.TrimSpace(result[3])
+			if len(expr) > 0 {
+				expr = base64.StdEncoding.EncodeToString([]byte(expr))
+			}
+		}
+
+		if err := c.SetBreakpoint(file, line, expr); err != nil {
+			view.PrintErrorLn("error while setting breakpoint. " + err.Error())
 		}
 	} else if result := matchBreakLine.FindStringSubmatch(t); result != nil {
 		line, _ = strconv.Atoi(result[1])
 
 		if len(result) > 1 {
 			expr = strings.TrimSpace(result[2])
+			if len(expr) > 0 {
+				expr = base64.StdEncoding.EncodeToString([]byte(expr))
+			}
 		}
-	}
 
-	if len(expr) > 0 {
-		expr = base64.StdEncoding.EncodeToString([]byte(expr))
-	}
-
-	if err := c.SetBreakpoint(file, line, expr); err != nil {
-		view.PrintErrorLn("error while setting breakpoint. " + err.Error())
+		if err := c.SetBreakpoint(file, line, expr); err != nil {
+			view.PrintErrorLn("error while setting breakpoint. " + err.Error())
+		}
+	} else if result := matchBreakCall.FindStringSubmatch(t); result != nil {
+		if err := c.SetBreakpointToCall(result[1]); err != nil {
+			view.PrintErrorLn("error while setting breakpoint. " + err.Error())
+		}
 	}
 }
 
